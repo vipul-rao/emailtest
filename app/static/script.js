@@ -4,7 +4,7 @@ $(function() {
     });
     NProgress.start();
     email_list_status(email_list)
-    /NProgress.done();
+    NProgress.done();
     //NProgress.remove();  
 
 });
@@ -29,8 +29,7 @@ Ajit.Nair@sanofi.com
 Akhil.Juneja@allergan.com
 Akhil.Sehrawat@stryker.com
 Akshay.Jodha@shire.com
-Albertraj.Balraj@roche.com
-`
+Albertraj.Balraj@roche.com`
 email_list = email_string.split('\n');
 var i = 0;
 
@@ -64,14 +63,13 @@ function email_list_status(emails) {
             .always(function() {
                 console.log('Done with: ' + email);
                 i += 1;
+                
                 NProgress.set(i / email_list.length);
+                if(i==email_list.length)
+                console.log('Finished');
             }); // progress bar
 
 
     });
 }
 
-
-if(i==email_list.length){
-  alert('Finished');
-}
