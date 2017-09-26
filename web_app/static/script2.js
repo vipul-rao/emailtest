@@ -3,7 +3,10 @@ $(document).ready(function(){
   $(window).scroll(function(){
   	var scroll = $(window).scrollTop();
 	  if (scroll > 30) {
-          $(".home-menu").css("background" , "#00d2ff");
+          $(".home-menu").css("background" , "##00d2ff");
+          $(".home-menu").css("background" , "-webkit-linear-gradient(to right, #928DAB, #00d2ff)");
+          $(".home-menu").css("background" , "linear-gradient(to right, #928DAB, #00d2ff)");
+    
 
           $(".home-menu").css("color","#fff");
           $(".home-menu a").css("color","#fff");
