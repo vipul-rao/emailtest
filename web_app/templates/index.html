@@ -7,6 +7,12 @@
     <title>Email Spider | Find anyone's email</title>
     <link href="https://fonts.googleapis.com/css?family=Raleway" rel="stylesheet">
     <link rel="stylesheet" href="https://unpkg.com/purecss@1.0.0/build/pure-min.css">
+     <script
+			  src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.js"
+			  >
+    </script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery-localScroll/2.0.0/jquery.localScroll.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery-scrollTo/2.1.2/jquery.scrollTo.js"></script>
     
     <!--[if lte IE 8]>
         <link rel="stylesheet" href="https://unpkg.com/purecss@1.0.0/build/grids-responsive-old-ie-min.css">
@@ -23,20 +29,17 @@
         <!--[if gt IE 8]><!-->
             <link rel="stylesheet" href="{{url_for('static', filename='style.css')}}">
         <!--<![endif]-->
-    <script
-			  src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.js"
-			  >
-    </script>
+   
     <script type="text/javascript" src="{{url_for('static', filename='script1.js')}}"></script>
 </head>
 <body>
 
-<div class="header">
+<div class="header" id="nav">
     <div class="home-menu pure-menu pure-menu-horizontal pure-menu-fixed">
         <a class="pure-menu-heading" href="">Email Spider</a>
         
         <ul class="pure-menu-list">
-            <li class="pure-menu-item pure-menu-selected"><a href="#" class="pure-menu-link">Home</a></li>
+            <li class="pure-menu-item pure-menu-selected"><a href="#nav" class="pure-menu-link">Home</a></li>
             <li class="pure-menu-item"><a href="#login" class="pure-menu-link">Login</a></li>
             <li class="pure-menu-item"><a href="#signup-col" class="pure-menu-link">Sign Up</a></li>
         </ul>
@@ -103,7 +106,7 @@
 
     </div>
 
-    <div class="footer l-box is-center">
+    <div class="footer l-box is-center foot">
         @Engage48
     </div>
 
