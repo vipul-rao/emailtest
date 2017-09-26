@@ -3,7 +3,7 @@ $(document).ready(function(){
   $(window).scroll(function(){
   	var scroll = $(window).scrollTop();
 	  if (scroll > 30) {
-          $(".home-menu").css("background" , "##00d2ff");
+          $(".home-menu").css("background" , "#00d2ff");
 
           $(".home-menu").css("color","#fff");
           $(".home-menu a").css("color","#fff");
