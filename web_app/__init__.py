@@ -63,7 +63,7 @@ def docs():
 @app.route('/email',methods=['POST'])
 def handle_email():
     email = request.form['email']
-    url = "http://localhost:"+port+"/api/email/"
+    url = "http://localhost:"+str(port)+"/api/email/"
     print("requesting: ",url)
     headers = {'Content-type': 'application/json'}
     r = requests.post(url,json={"email":email,"key":"C88B933A691E16C56EBC92BCC9A7E"},headers=headers)
@@ -79,7 +79,7 @@ def handle_emailList():
     email = request.form['email']
     headers = {'Content-type': 'application/json'}
     print('here')
-    api_url = "https://localhost:"+port+"/api/email/"
+    api_url = "https://localhost:"+str(port)+"/api/email/"
     r = requests.post(api_url,json={"email":email,"key":"C88B933A691E16C56EBC92BCC9A7E"},headers=headers)
     print(r.json())
     return jsonify(r.json()),200
