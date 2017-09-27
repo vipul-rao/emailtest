@@ -46,16 +46,17 @@
     </div>
 </div>
 
-<div class="splash-container">
+<div class="splash-container pure-img">
     
-   <form >
+   <form action="{{ url_for('handle_email') }}" method="post">
     <div class="splash">
-        <input type="text" class="splash-head" id="email" placeholder="enter email here"> 
+        <input type="text" class="splash-head" id="email" placeholder="enter email here" name="email"> 
            <p class="splash-subhead">
             Email spider can find thousand of emails in seconds.
         </p>
-        <p>
-            <a href="#login" class="pure-button pure-button-primary" id="search-btn">Get Started</a>
+        <p> 
+            <input type="submit" value="Submit" class="pure-button" id="search-btn" value="Get Started">
+            <!--<a href="#login" class="pure-button pure-button-primary" id="search-btn">Get Started</a>-->
         </p>
     </div>
     </form>

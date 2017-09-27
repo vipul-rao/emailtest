@@ -1,1 +1,1 @@
-web: gunicorn web_app:app -w 4 -t 12000
+web: gunicorn web_app:app -w $((2 * $(getconf _NPROCESSORS_ONLN) + 1))
