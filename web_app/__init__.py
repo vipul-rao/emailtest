@@ -9,6 +9,7 @@ from bson.json_util import dumps
 MONGO_URI = os.environ.get('MONGODB_URI')
 #MONGO_URI = "mongodb://admin:admin123@ds149134.mlab.com:49134/heroku_2g2nnp30"
 
+port = int(os.environ.get('PORT',33507))
 if not MONGO_URI:
     MONGO_URI = "mongodb://localhost:27017/api";
 print("MONGO_URL: "+MONGO_URI)
@@ -62,7 +63,7 @@ def docs():
 @app.route('/email',methods=['POST'])
 def handle_email():
     email = request.form['email']
-    url = "http://localhost/api/email/"
+    url = "http://localhost:"+port+"/api/email/"
     print("requesting: ",url)
     headers = {'Content-type': 'application/json'}
     r = requests.post(url,json={"email":email,"key":"C88B933A691E16C56EBC92BCC9A7E"},headers=headers)
@@ -78,7 +79,7 @@ def handle_emailList():
     email = request.form['email']
     headers = {'Content-type': 'application/json'}
     print('here')
-    api_url = "https://localhost/api/email/"
+    api_url = "https://localhost:"+port+"/api/email/"
     r = requests.post(api_url,json={"email":email,"key":"C88B933A691E16C56EBC92BCC9A7E"},headers=headers)
     print(r.json())
     return jsonify(r.json()),200
