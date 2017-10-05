@@ -143,7 +143,9 @@ a.pure-button-primary {
 
 .splash-container {
    
-    background-image: url('./pattern.png');       
+    background-image: -moz-linear-gradient( 80deg, rgb(10,110,191) 0%, rgb(29,139,224) 100%);
+	background-image: -webkit-linear-gradient( 80deg, rgb(10,110,191) 0%, rgb(29,139,224) 100%);
+	background-image: -ms-linear-gradient( 80deg, rgb(10,110,191) 0%, rgb(29,139,224) 100%);
     /*    background: #5fb0f0;  /* fallback for old browsers 
 background: -webkit-linear-gradient(to right, #5fb0f0,#469ee8);  /* Chrome 10-25, Safari 5.1-6 
 background: linear-gradient(to right, #5fb0f0,#469ee8); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ 

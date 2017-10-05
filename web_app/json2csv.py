@@ -13,7 +13,7 @@ def json2csv(f,f2):
         for json_data in json_list:
             file.write("\n"+",".join(json_data.values()))
 
-json2csv("test9.json","test10.csv")
+json2csv("olive.json","olive.csv")
 
 def predict(file_path, n_lines=20):
     '''Predict a file's encoding using chardet'''
