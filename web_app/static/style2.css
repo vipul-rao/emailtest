@@ -123,11 +123,16 @@ a.pure-button-primary {
     color: #2d3e50;
     text-transform: lowercase;
 }
-.home-menu li a:hover,
-.home-menu li a:focus {
-    background: none;
+.home-menu li a:hover{
+    background: #1D85CA;
     border: none;
-    color: #2d3e50;
+    color: #fff;
+}
+
+.home-menu li a:focus{
+    background-color: #fff;
+    border: none;
+    color:#2d3e50;
 }
 
 
@@ -281,15 +286,35 @@ background: linear-gradient(to right, #5fb0f0,#469ee8); /* W3C, IE 10+/ Edge, Fi
 
 #email{
     color:black;
+    
+}
+
+.input-box{
+    background:#fff;
+    /*color:#000;*/
+    /*width: 90%; */
+    padding:10px;
+    /*border-radius:5px;*/
+    content:'Browse...';
+    
+   color:  #2d3e50;
+    /*background: #faffbd;*/
+    border-radius: 5px;
+    width: 100%;
+    text-transform: lowercase;
+    border:none;
+    
+}
+
+#add_csv{
+    cursor: pointer;
 }
 
 
 
 
 
-.foot{
-    font-size: large;
-}
+
 /*
  * -- TABLET (AND UP) MEDIA QUERIES --
  * On tablets and other medium-sized devices, we want to customize some
@@ -326,6 +351,10 @@ background: linear-gradient(to right, #5fb0f0,#469ee8); /* W3C, IE 10+/ Edge, Fi
     .splash-head {
         font-size: 150%;
     }
+    
+    .input-box{
+        font-size: 150%;
+    }
 
 
     /* We remove the border-separator assigned to .l-box-lrg */
@@ -351,6 +380,11 @@ background: linear-gradient(to right, #5fb0f0,#469ee8); /* W3C, IE 10+/ Edge, Fi
 @media (min-width: 78em) {
     /* We increase the header font size even more */
     .splash-head {
+        font-size: 180%;
+        width: 90%;
+    }
+    
+    .input-box{
         font-size: 180%;
         width: 90%;
     }

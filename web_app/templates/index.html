@@ -7,12 +7,6 @@
     <title>Email Spider | Find anyone's email</title>
     <link href="https://fonts.googleapis.com/css?family=Raleway" rel="stylesheet">
     <link rel="stylesheet" href="https://unpkg.com/purecss@1.0.0/build/pure-min.css">
-     <script
-			  src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.js"
-			  >
-    </script>
-    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery-localScroll/2.0.0/jquery.localScroll.js"></script>
-    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery-scrollTo/2.1.2/jquery.scrollTo.js"></script>
     
     <!--[if lte IE 8]>
         <link rel="stylesheet" href="https://unpkg.com/purecss@1.0.0/build/grids-responsive-old-ie-min.css">
@@ -30,7 +24,7 @@
             <link rel="stylesheet" href="{{url_for('static', filename='style2.css')}}">
         <!--<![endif]-->
    
-    <script type="text/javascript" src="{{url_for('static', filename='script2.js')}}"></script>
+    
 </head>
 <body>
 
@@ -39,7 +33,8 @@
         <a class="pure-menu-heading" href="">Email Spider</a>
         
         <ul class="pure-menu-list">
-            <li class="pure-menu-item pure-menu-selected"><a href="#nav" class="pure-menu-link">Home</a></li>
+            <!--<li class="pure-menu-item pure-menu-selected"><a href="#nav" class="pure-menu-link">Home</a></li>-->
+            <li class="pure-menu-item"><a href="#" id="add_csv" class="pure-menu-link">upload csv</a></li>
             <li class="pure-menu-item"><a href="#login" class="pure-menu-link">Login</a></li>
             <li class="pure-menu-item"><a href="#signup-col" class="pure-menu-link">Sign Up</a></li>
         </ul>
@@ -50,9 +45,10 @@
     
    <form action="{{ url_for('handle_email') }}" method="post">
     <div class="splash">
-        <input type="text" class="splash-head" id="email" placeholder="enter email here" name="email"> 
-           <p class="splash-subhead">
-            Email spider can find thousand of emails in seconds.
+        <input type="text" class="input-box" id="email" placeholder="enter email here" name="email"> 
+        <input type="file" id="file1" class="input-box" style="display:none;" value="browse...">
+        <p class="splash-subhead">
+        Email spider can find thousand of emails in seconds.
         </p>
         <p> 
             <input type="submit" value="Submit" class="pure-button" id="search-btn" value="Get Started">
@@ -115,6 +111,6 @@
 
 
 
-
+<script type="text/javascript" src="{{url_for('static', filename='script2.js')}}"></script>
 </body>
 </html>

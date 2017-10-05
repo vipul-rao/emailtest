@@ -9,12 +9,6 @@ from flask import make_response
 app = Flask(__name__)
 
 
-#JSON-response builder function
-def output_json(obj, code, headers = None):
-    resp = make_response(dumps(obj), code)
-    resp.headers.extend(headers or {})
-    return resp
-
 
 
 #gets the email status
@@ -24,7 +18,7 @@ def get_json(url,data):
     r = requests.get(url+email.lower());
     print(r)
     data = r.json();
-    return data;        
+    return data;
 
 
 
