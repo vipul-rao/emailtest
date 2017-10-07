@@ -34,9 +34,7 @@ def parse_csv_pool(filename):
         email_list=verify(email_list);
         print("One job finished!")
     except Exception as e:
-        for frame in traceback.extract_tb(sys.exc_info()[2]):
-            fname,lineno,fn,text = frame
-            print("Error in file:{0} on line {1}\nfunction:{2}\ntext:{3}\ntype: {4}".format(fname,lineno,fn,text,e))
+        traceback.print_exc()
 #    return Response(json.dumps(email_list,  mimetype='application/json'))
    
 @app.route('/')
