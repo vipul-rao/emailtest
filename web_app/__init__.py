@@ -15,7 +15,7 @@ executor = ThreadPoolExecutor(2)
 # Define the WSGI application object
 app = Flask(__name__)
 app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
-
+url = "https://spiderapi.herokuapp.com/api/email/"
 r=requests.get(url)
 print("First request response:",r);
 print("JSON: ",r.json())
