@@ -1,12 +1,10 @@
-import json,grequests,requests,time;
+import json,grequests,requests,time,traceback;
 from collections import OrderedDict
-url = "http://spiderapi.herokuapp.com/api/email/"
+url = "https://spiderapi.herokuapp.com/api/email/"
 headers = {'Content-type': 'application/json',"Connection": "close"}
 MAX_CONNECTIONS = 50
 
-r=requests.get(url)
-print("First request response:",r);
-print("JSON: ",r.json())
+
 def print_res(res, **kwargs):
     print(res)
     print(kwargs)
@@ -42,8 +40,7 @@ def verify(json_list):
         try:
             res.append(r.json(object_pairs_hook=OrderedDict))
         except Exception as e:
-            print("Request content:",r.content())
-            print(e)
+            traceback.print_exc()
             
     return res;
 
