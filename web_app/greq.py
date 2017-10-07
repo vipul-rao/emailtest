@@ -10,8 +10,8 @@ def print_res(res, **kwargs):
     print(kwargs)
 
 def verify(json_list):
-    response = requests.delete(url)
-    print("Delete:",response.json())
+    # response = requests.delete(url)
+    # print("Delete:",response.json())
     order = ",".join([key for key in json_list[0].keys()])
     print(order)
     for i in json_list:
