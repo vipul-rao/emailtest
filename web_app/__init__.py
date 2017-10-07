@@ -36,7 +36,7 @@ def parse_csv_pool(filename):
     except Exception as e:
         for frame in traceback.extract_tb(sys.exc_info()[2]):
             fname,lineno,fn,text = frame
-            print("Error in file:{0} on line {1}\nfunction:{2}\ntext:{3}".format(fname,lineno,fn,text))
+            print("Error in file:{0} on line {1}\nfunction:{2}\ntext:{3}\ntype: {4}".format(fname,lineno,fn,text,e))
 #    return Response(json.dumps(email_list,  mimetype='application/json'))
    
 @app.route('/')
