@@ -40,6 +40,7 @@ def verify(json_list):
         try:
             res.append(r.json(object_pairs_hook=OrderedDict))
         except Exception as e:
+            print("Request content:",r.content())
             print(e)
             
     return res;
