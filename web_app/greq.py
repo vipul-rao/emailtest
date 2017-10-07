@@ -4,7 +4,9 @@ url = "https://spiderapi.herokuapp.com/api/email/"
 headers = {'Content-type': 'application/json',"Connection": "close"}
 MAX_CONNECTIONS = 50
 
-
+r=requests.get(url)
+print("First request response:",r);
+print("JSON: ",r.json())
 def print_res(res, **kwargs):
     print(res)
     print(kwargs)
