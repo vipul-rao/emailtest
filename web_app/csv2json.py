@@ -70,27 +70,26 @@ class csv2dict:
         #     lst.append(item)
         # return lst;
 
-#reader = csvReader('test.csv');
-c2d = csv2dict('test.csv')
-json_generator = c2d.to_json()
+# c2d = csv2dict('test.csv')
+# json_generator = c2d.to_json()
 
-jsonlist = [i for i in json_generator];
+# jsonlist = [i for i in json_generator];
 
-with open('test.json','w') as f:
-    # for item in jsonGenerator:
-    #     jsonlist.append(item)
+
+def parse_csv(file):
+    c2d = csv2dict(file)
+    json_generator = c2d.to_json()
+    jsonlist = [i for i in json_generator];
+    return jsonlist;
+
+
+
+# with open('test.json','w') as f:
+#     # for item in jsonGenerator:
+#     #     jsonlist.append(item)
     
-    print("Length of list now:",len(jsonlist))
-    f.write(json.dumps(jsonlist))
+#     print("Length of list now:",len(jsonlist))
+#     f.write(json.dumps(jsonlist))
     
-print(predict('olive.json',n_lines=500))
-
-# with open('test3.json','w') as f:
-#     f.write('[\n')
-#     for json_obj in jsonlist:
-#         f.write("{")
-#         for key,value in json_obj.items():
-#             f.write("\"{0}\" : \"{1}\",".format(key,json_obj[key]))
-#         f.write("},")
-#     f.write(']')
+# print(predict('olive.json',n_lines=500))
 

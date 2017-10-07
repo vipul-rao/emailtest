@@ -44,17 +44,28 @@
 </div>
 
 <div class="splash-container pure-img">
-    
-   <form action="{{ url_for('handle_email') }}" method="post">
+            
+   <form action="{{ url_for('handle_emailList') }}"  id="csv_file" method=post enctype=multipart/form-data style="display:none;">
+    <div class="splash">
+        <input type="file" id="csv_file" class="input-box" value="browse..." name="file">
+        <p class="splash-subhead">
+        Email spider can find thousand of emails in seconds.
+        </p>
+        <p> 
+            <input type="submit" value="Upload" class="pure-button" id="search-btn" value="Get Started">
+        </p>
+    </div>
+    </form> 
+   
+   <form action="{{ url_for('handle_email') }}" method="post" id="email">
     <div class="splash">
         <input type="text" class="input-box" id="email" placeholder="enter email here" name="email"> 
-        <input type="file" id="file1" class="input-box" style="display:none;" value="browse...">
+        <input type="file" id="csv_file" class="input-box" style="display:none;" value="browse...">
         <p class="splash-subhead">
         Email spider can find thousand of emails in seconds.
         </p>
         <p> 
             <input type="submit" value="Submit" class="pure-button" id="search-btn" value="Get Started">
-            <!--<a href="#login" class="pure-button pure-button-primary" id="search-btn">Get Started</a>-->
         </p>
     </div>
     </form>
@@ -113,6 +124,6 @@
 
 
 
-<script type="text/javascript" src="{{url_for('static', filename='script2.js')}}"></script>
+<script type="text/javascript" src="{{url_for('static', filename='script5.js')}}"></script>
 </body>
 </html>

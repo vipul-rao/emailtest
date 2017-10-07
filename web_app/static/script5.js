@@ -9,10 +9,10 @@ function f() {
     if(!myStatus){
         btn.innerHTML = "enter email"
         document.getElementById("email").style.display = 'none';
-        document.getElementById("file1").style.display = '';
+        document.getElementById("csv_file").style.display = '';
     }else{
         btn.innerHTML = "upload csv"
-        document.getElementById("file1").style.display = 'none';
+        document.getElementById("csv_file").style.display = 'none';
         document.getElementById("email").style.display = '';
     }
     console.log(myStatus);
