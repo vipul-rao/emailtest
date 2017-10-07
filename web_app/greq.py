@@ -1,6 +1,6 @@
 import json,grequests,requests,time,traceback;
 from collections import OrderedDict
-url = "https://spiderapi.herokuapp.com/api/email/"
+url = "http://spiderapi.herokuapp.com/api/email/"
 headers = {'Content-type': 'application/json',"Connection": "close"}
 MAX_CONNECTIONS = 50
 
