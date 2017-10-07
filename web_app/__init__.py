@@ -29,14 +29,14 @@ def get_json(url,data):
 
 #csv parse job pool
 def parse_csv_pool(filename):
-    try:
-        email_list = parse_csv(filename);
-        email_list=verify(email_list);
-        print("One job finished!")
-    except Exception as e:
-        for frame in traceback.extract_tb(sys.exc_info()[2]):
-            fname,lineno,fn,text = frame
-            print("Error in file:{0} on line {1}\nfunction:{2}\ntext:{3}".format(fname,lineno,fn,text))
+    #try:
+    email_list = parse_csv(filename);
+    email_list=verify(email_list);
+    print("One job finished!")
+    # except Exception as e:
+    #     for frame in traceback.extract_tb(sys.exc_info()[2]):
+    #         fname,lineno,fn,text = frame
+    #         print("Error in file:{0} on line {1}\nfunction:{2}\ntext:{3}".format(fname,lineno,fn,text))
 #    return Response(json.dumps(email_list,  mimetype='application/json'))
    
 @app.route('/')
