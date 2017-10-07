@@ -23,7 +23,6 @@ def verify(json_list):
     
     gr=[]
     #email_list =[email for email in email_list if email['email'] is not '']
-    print(email_list)
     #print(email_list)
     for x in range(0,len(email_list)+1, MAX_CONNECTIONS):
         rs = (grequests.post(url, stream=False,headers=headers,json=i,hooks=dict(response=print_res)) for i in email_list[x:x+MAX_CONNECTIONS] if i['email'] is not '')
