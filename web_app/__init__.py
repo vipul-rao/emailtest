@@ -29,9 +29,9 @@ def get_json(url,data):
     return data;
 
 #csv parse job pool
-def parse_csv_pool(filename,req_id):
+def parse_csv_pool(email_list,req_id):
     try:
-        email_list = parse_csv(filename);
+        #email_list = parse_csv(filename);
         email_list=verify(email_list,req_id);
         print("One job finished!")
     except Exception as e:
@@ -68,11 +68,21 @@ def handle_emailList():
             filename = secure_filename(file.filename)
             file.save(os.path.join(app.config['UPLOAD_FOLDER'],filename))
             try:
-                executor.submit(parse_csv_pool,UPLOAD_FOLDER+filename,req_id)
-                #email_list = parse_csv(UPLOAD_FOLDER+filename)
-                return 'One jobs was launched in background with id: {0}'.format(req_id)
+                email_list = parse_csv(UPLOAD_FOLDER+filename)
+                print("Email list length: ",len(email_list))
+                email_list =[email for email in email_list if email['email'] is not '']
+                list_size = len(email_list);
+                print("parsed length:",list_size)
+                executor.submit(parse_csv_pool,email_list,req_id)
+                return redirect(url_for('results',i=req_id,l=list_size))
+                #return 'One jobs was launched in background with id: {0}'.format(req_id)
             except Exception as e:
                 return str(e);
         else:
             return jsonify({'code': 400,'message': 'No interface defined for URL'}),400
             
+@app.route('/results',methods=['GET'])
+def results():
+    req_id=request.args['i']
+    length = request.args['l']
+    return render_template('result.html',req_id=req_id,length=length);

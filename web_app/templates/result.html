@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <script type="text/javascript" src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+    <link href="https://fonts.googleapis.com/css?family=Raleway" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Lato:300,400,700,900" rel="stylesheet">
+    <link rel="stylesheet" href="https://unpkg.com/purecss@1.0.0/build/pure-min.css">
+    <style type="text/css">
+        body { white-space: pre; font-family: monospace; }
+        .pure-button{
+            margin: 10px;
+        }
+    </style>
+    <title>Results</title>
+</head>
+
+<body>
+    Your ID: {{ req_id }}
+    Total Emails: {{ length }}
+    <input type="button" class="pure-button pure-button-primary" id="delbtn" value="delete all" onclick="del('{{ req_id }}','{{ length }}')" />
+    <input type="button" class="pure-button pure-button-primary" id="dwnldbtn" value="download as csv" onclick="download('{{ req_id }}','{{ length }}')" />
+    
+    <div class="inner"></div>
+    <script type="text/javascript">
+        var len = "{{ length }}";
+        console.log(len);
+        var req_id = "{{ req_id }}";
+        console.log(req_id);
+        $(".inner").text("Loading ...");
+        function del(id,len) {
+            $.ajax({
+                type: "DELETE",
+                url: "http://spiderapi.herokuapp.com/api/email/"+id+"/",
+                success: function(msg) {
+                    alert("Data Deleted: " + JSON.stringify(msg));
+                }
+            });
+            load(id,len);
+        }
+
+        function download(id, len) {
+            console.log('in load()')
+            alert(" hello !");
+        }
+        
+        var refreshIntervalId=setInterval(()=>{
+            console.log("request id: "+req_id+" length: "+len);
+            $.getJSON('http://spiderapi.herokuapp.com/api/email/' + req_id + '/', (data) => {
+                console.log("recieved length: "+data.length);
+                if(data.length < len ){
+                    document.getElementsByClassName("inner")[0].innerHTML = "Loading ...<br>Processed till now: <b>"+data.length+"</b>"
+                }
+                else if(data.length >= len ) {
+                    document.getElementsByClassName("inner")[0].innerText = "";
+                    document.getElementsByClassName("inner")[0].innerText= JSON.stringify(data, null, 4);
+                    clearInterval(refreshIntervalId);
+                    console.log('done');
+                }
+            });
+        }, 7000)
+        
+    </script>
+</body>
+
+</html>

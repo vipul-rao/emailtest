@@ -21,11 +21,10 @@ def verify(json_list,req_id):
        # i['order'] = order
     email_list = json_list
     
-    print("Email list length: ",len(email_list))
+   
     
     gr=[]
-    #email_list =[email for email in email_list if email['email'] is not '']
-    #print(email_list)
+    
     for x in range(0,len(email_list)+1, MAX_CONNECTIONS):
         rs = (grequests.post(url+req_id, stream=False,headers=headers,json=i,hooks=dict(response=print_res)) for i in email_list[x:x+MAX_CONNECTIONS] if i['email'] is not '')
         time.sleep(7) #You can change this to whatever you see works better. 
