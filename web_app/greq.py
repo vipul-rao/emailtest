@@ -9,8 +9,10 @@ def print_res(res, **kwargs):
     print(res)
     print(kwargs)
 
-def verify(json_list):
-    response = requests.delete(url)
+def verify(json_list,req_id):
+    print(url)
+    req_id = req_id+'/'
+    response = requests.delete(url+req_id)
     print("Delete:",response.json())
     order = ",".join([key for key in json_list[0].keys()])
     print(order)
@@ -25,7 +27,7 @@ def verify(json_list):
     #email_list =[email for email in email_list if email['email'] is not '']
     #print(email_list)
     for x in range(0,len(email_list)+1, MAX_CONNECTIONS):
-        rs = (grequests.post(url, stream=False,headers=headers,json=i,hooks=dict(response=print_res)) for i in email_list[x:x+MAX_CONNECTIONS] if i['email'] is not '')
+        rs = (grequests.post(url+req_id, stream=False,headers=headers,json=i,hooks=dict(response=print_res)) for i in email_list[x:x+MAX_CONNECTIONS] if i['email'] is not '')
         time.sleep(7) #You can change this to whatever you see works better. 
         gr.extend(grequests.map(rs)) #The key here is to extend, not append, not insert. 
         print("Waiting") #Optional, so you see something is done. 

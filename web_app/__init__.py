@@ -8,6 +8,7 @@ from web_app.files_utils import allowed_file,UPLOAD_FOLDER
 from web_app.csv2json import parse_csv
 from web_app.greq import verify;
 from collections import OrderedDict
+from datetime import datetime
 
 # DOCS https://docs.python.org/3/library/concurrent.futures.html#concurrent.futures.ThreadPoolExecutor
 executor = ThreadPoolExecutor(2)
@@ -15,7 +16,7 @@ executor = ThreadPoolExecutor(2)
 # Define the WSGI application object
 app = Flask(__name__)
 app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
-
+FORMAT = '%Y%m%d%H%M%S'
 
 
 #gets the email status
@@ -28,10 +29,10 @@ def get_json(url,data):
     return data;
 
 #csv parse job pool
-def parse_csv_pool(filename):
+def parse_csv_pool(filename,req_id):
     try:
         email_list = parse_csv(filename);
-        email_list=verify(email_list);
+        email_list=verify(email_list,req_id);
         print("One job finished!")
     except Exception as e:
         traceback.print_exc()
@@ -61,14 +62,15 @@ def handle_emailList():
     if request.method == 'GET':
         return "Hello getter"
     elif request.method == 'POST':
+        req_id = 'file'+datetime.now().strftime(FORMAT)
         file = request.files['file']
         if file and allowed_file(file.filename):
             filename = secure_filename(file.filename)
             file.save(os.path.join(app.config['UPLOAD_FOLDER'],filename))
             try:
-                executor.submit(parse_csv_pool,UPLOAD_FOLDER+filename)
+                executor.submit(parse_csv_pool,UPLOAD_FOLDER+filename,req_id)
                 #email_list = parse_csv(UPLOAD_FOLDER+filename)
-                return 'One jobs was launched in background!'
+                return 'One jobs was launched in background with id: {0}'.format(req_id)
             except Exception as e:
                 return str(e);
         else:
