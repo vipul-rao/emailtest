@@ -11,21 +11,26 @@
             white-space: pre;
             font-family: monospace;
         }
+        
         .pure-button {
             margin: 10px;
         }
+        
         pre {
             background-color: ghostwhite;
             border: 1px solid silver;
             padding: 10px 20px;
             margin: 20px;
         }
+        
         .json-key {
             color: brown;
         }
+        
         .json-value {
             color: navy;
         }
+        
         .json-string {
             color: olive;
         }
@@ -34,7 +39,7 @@
 </head>
 
 <body>
-    Your ID: {{ req_id }} Total Emails: {{ length }}
+    Your ID: {{ req_id }} Total Emails: {{ req_id.split('_')[-1] }}
     <input type="button" class="pure-button pure-button-primary" id="delbtn" value="delete all" onclick="del('{{ req_id }}','{{ length }}')" />
     <input type="button" class="pure-button pure-button-primary" id="download" value="download as csv" />
 
@@ -42,71 +47,102 @@
     <pre><code id=json></code></pre>
     <script type="text/javascript">
         var main_data = null;
-       
 
-                    if (!library)
-                        var library = {};
+        if (!library)
+            var library = {};
 
-                    library.json = {
-                        replacer: function(match, pIndent, pKey, pVal, pEnd) {
-                            var key = '<span class=json-key>';
-                            var val = '<span class=json-value>';
-                            var str = '<span class=json-string>';
-                            var r = pIndent || '';
-                            if (pKey)
-                                r = r + key + pKey.replace(/[": ]/g, '') + '</span>: ';
-                            if (pVal)
-                                r = r + (pVal[0] == '"' ? str : val) + pVal + '</span>';
-                            return r + (pEnd || '');
-                        },
-                        prettyPrint: function(obj) {
-                            var jsonLine = /^( *)("[\w]+": )?("[^"]*"|[\w.+-]*)?([,[{])?$/mg;
-                            return JSON.stringify(obj, null, 3)
-                                .replace(/&/g, '&amp;').replace(/\\"/g, '&quot;')
-                                .replace(/</g, '&lt;').replace(/>/g, '&gt;')
-                                .replace(jsonLine, library.json.replacer);
-                        }
-                    };
+        library.json = {
+            replacer: function(match, pIndent, pKey, pVal, pEnd) {
+                var key = '<span class=json-key>';
+                var val = '<span class=json-value>';
+                var str = '<span class=json-string>';
+                var r = pIndent || '';
+                if (pKey)
+                    r = r + key + pKey.replace(/[": ]/g, '') + '</span>: ';
+                if (pVal)
+                    r = r + (pVal[0] == '"' ? str : val) + pVal + '</span>';
+                return r + (pEnd || '');
+            },
+            prettyPrint: function(obj) {
+                var jsonLine = /^( *)("[\w]+": )?("[^"]*"|[\w.+-]*)?([,[{])?$/mg;
+                return JSON.stringify(obj, null, 3)
+                    .replace(/&/g, '&amp;').replace(/\\"/g, '&quot;')
+                    .replace(/</g, '&lt;').replace(/>/g, '&gt;')
+                    .replace(jsonLine, library.json.replacer);
+            }
+        };
 
+        var len = "{{ req_id.split('_')[-1] }}";
+        console.log(len);
+        var req_id = "{{ req_id }}";
+        console.log(req_id);
+        $(".inner").text("Loading ...");
 
+        function del(id, len) {
+            $.ajax({
+                type: "DELETE",
+                url: "http://spiderapi.herokuapp.com/api/email/" + id + "/",
+                success: function(msg) {
+                    alert("Data Deleted: " + JSON.stringify(msg));
+                    window.location = '/'
+                }
+            });
+        }
 
+        function download(id, len) {
+            console.log('in load()')
+            alert(" hello !");
+        }
 
-                    var len = "{{ length }}";
-                    console.log(len);
-                    var req_id = "{{ req_id }}";
-                    console.log(req_id);
-                    $(".inner").text("Loading ...");
+        var refreshIntervalId = setInterval(() => {
+            console.log("request id: " + req_id + " length: " + len);
+            $.getJSON('//spiderapi.herokuapp.com/api/email/' + req_id + '/', (data) => {
+                console.log("recieved length: " + data.length);
+                if (data.length < len) {
+                    document.getElementsByClassName("inner")[0].innerHTML = "Loading ...<br>Processed till now: <b>" + data.length + "</b>"
+                } else if (data.length >= len) {
+                    document.getElementsByClassName("inner")[0].innerText = "";
+                    $('#json').html(library.json.prettyPrint(data));
+                    main_data = data;
+                    clearInterval(refreshIntervalId);
+                    console.log('done');
+                }
+            });
+        }, 7000);
 
-                    function del(id, len) {
-                        $.ajax({
-                            type: "DELETE",
-                            url: "http://spiderapi.herokuapp.com/api/email/" + id + "/",
-                            success: function(msg) {
-                                alert("Data Deleted: " + JSON.stringify(msg));
-                            }
-                        });
-                    }
+        /*DOWNLOAD */
 
-                    function download(id, len) {
-                        console.log('in load()')
-                        alert(" hello !");
-                    }
+        $(document).ready(function() {
+            $('#download').click(function() {
+                var data = main_data
+                if (data == '')
+                    return;
+                json2csv(data);
 
-                    var refreshIntervalId = setInterval(() => {
-                        console.log("request id: " + req_id + " length: " + len);
-                        $.getJSON('//spiderapi.herokuapp.com/api/email/' + req_id + '/', (data) => {
-                            console.log("recieved length: " + data.length);
-                            if (data.length < len) {
-                                document.getElementsByClassName("inner")[0].innerHTML = "Loading ...<br>Processed till now: <b>" + data.length + "</b>"
-                            } else if (data.length >= len) {
-                                document.getElementsByClassName("inner")[0].innerText = "";
-                                $('#json').html(library.json.prettyPrint(data));
-                                main_data = data;
-                                clearInterval(refreshIntervalId);
-                                console.log('done');
-                            }
-                        });
-                    }, 7000);
+            });
+
+        });
+
+        function json2csv(json_list) {
+            for (let i = 0; i < json_list.length; i++) {
+                delete json_list[i]['_id']
+            }
+            keys = Object.keys(json_list[0])
+
+            //header
+            let csv_data = keys.join(",")
+            for (let i = 0; i < json_list.length; i++) {
+                values = Object.values(json_list[i])
+                csv_data += '\n' + values.join(",")
+            }
+            //console.log(csv_data)
+            var encodedUri = encodeURI(csv_data);
+            var link = document.createElement("a");
+            link.setAttribute("href", 'data:text/csv;charset=utf-8,' + encodedUri);
+            link.setAttribute("download", "{{ req_id }}.csv");
+            document.body.appendChild(link); // Required for FF
+            link.click();
+        }
     </script>
 </body>
 

@@ -72,9 +72,10 @@ def handle_emailList():
                 print("Email list length: ",len(email_list))
                 email_list =[email for email in email_list if email['email'] is not '']
                 list_size = len(email_list);
+                req_id+='_{0}'.format(list_size);
                 print("parsed length:",list_size)
                 executor.submit(parse_csv_pool,email_list,req_id)
-                return redirect(url_for('results',i=req_id,l=list_size))
+                return redirect(url_for('results',rid=req_id))
                 #return 'One jobs was launched in background with id: {0}'.format(req_id)
             except Exception as e:
                 return str(e);
@@ -83,6 +84,5 @@ def handle_emailList():
             
 @app.route('/results',methods=['GET'])
 def results():
-    req_id=request.args['i']
-    length = request.args['l']
-    return render_template('result.html',req_id=req_id,length=length);
+    req_id=request.args['rid']
+    return render_template('result.html',req_id=req_id);
