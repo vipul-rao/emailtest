@@ -85,7 +85,6 @@
                                 alert("Data Deleted: " + JSON.stringify(msg));
                             }
                         });
-                        load(id, len);
                     }
 
                     function download(id, len) {
@@ -95,7 +94,7 @@
 
                     var refreshIntervalId = setInterval(() => {
                         console.log("request id: " + req_id + " length: " + len);
-                        $.getJSON('http://spiderapi.herokuapp.com/api/email/' + req_id + '/', (data) => {
+                        $.getJSON('//spiderapi.herokuapp.com/api/email/' + req_id + '/', (data) => {
                             console.log("recieved length: " + data.length);
                             if (data.length < len) {
                                 document.getElementsByClassName("inner")[0].innerHTML = "Loading ...<br>Processed till now: <b>" + data.length + "</b>"
