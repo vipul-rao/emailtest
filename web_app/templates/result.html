@@ -6,21 +6,39 @@
     <link href="https://fonts.googleapis.com/css?family=Raleway" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css?family=Lato:300,400,700,900" rel="stylesheet">
     <link rel="stylesheet" href="https://unpkg.com/purecss@1.0.0/build/pure-min.css">
+     <link rel="stylesheet" href="{{url_for('static', filename='style2.css')}}">
     <style type="text/css">
-        body {
-            white-space: pre;
-            font-family: monospace;
+    
+    body {
+            color:black;
+            padding:10px;
+            margin: 20px 20px;
+            text-transform:none;
+            
+        }
+        
+        
+        h2,h3{
+            margin:0;
+        }
+       
+        
+        #rid{
+            margin:0px 10px;
         }
         
         .pure-button {
-            margin: 10px;
+            
+        }
+        .inner{
+            margin:40px 0px;
         }
         
         pre {
+            font-family: monospace;
             background-color: ghostwhite;
             border: 1px solid silver;
             padding: 10px 20px;
-            margin: 20px;
         }
         
         .json-key {
@@ -34,16 +52,22 @@
         .json-string {
             color: olive;
         }
+        .success {
+    color: #4F8A10;
+}
     </style>
     <title>Results</title>
 </head>
 
 <body>
-    Your ID: {{ req_id }} Total Emails: {{ req_id.split('_')[-1] }}
+    
+
+    <h2>Your ID: <span id="rid">{{ req_id }}</span></h2><br>
+    <h3>Total Emails: {{ req_id.split('_')[-1] }}</h3><br>
     <input type="button" class="pure-button pure-button-primary" id="delbtn" value="delete all" onclick="del('{{ req_id }}','{{ length }}')" />
     <input type="button" class="pure-button pure-button-primary" id="download" value="download as csv" />
 
-    <div class="inner"></div>
+    <h2><div class="inner"></div></h2>
     <pre><code id=json></code></pre>
     <script type="text/javascript">
         var main_data = null;
@@ -99,7 +123,7 @@
             $.getJSON('//spiderapi.herokuapp.com/api/email/' + req_id + '/', (data) => {
                 console.log("recieved length: " + data.length);
                 if (data.length < len) {
-                    document.getElementsByClassName("inner")[0].innerHTML = "Loading ...<br>Processed till now: <b>" + data.length + "</b>"
+                    document.getElementsByClassName("inner")[0].innerHTML = "Loading ...<br>Processed till now: <b> <span class=success>" + data.length + "</span></b>"
                 } else if (data.length >= len) {
                     document.getElementsByClassName("inner")[0].innerText = "";
                     $('#json').html(library.json.prettyPrint(data));
@@ -127,15 +151,21 @@
             for (let i = 0; i < json_list.length; i++) {
                 delete json_list[i]['_id']
             }
-            keys = Object.keys(json_list[0])
-
+            let keys = Object.keys(json_list[0])
+            
+            const escape = text =>
+                text.replace(/,/g, "-")
+                
             //header
             let csv_data = keys.join(",")
             for (let i = 0; i < json_list.length; i++) {
-                values = Object.values(json_list[i])
+                let values = Object.values(json_list[i])
+                values = values.map(escape)
+                console.log(values)
+                console.log("\n")
                 csv_data += '\n' + values.join(",")
             }
-            //console.log(csv_data)
+            console.log(csv_data)
             var encodedUri = encodeURI(csv_data);
             var link = document.createElement("a");
             link.setAttribute("href", 'data:text/csv;charset=utf-8,' + encodedUri);

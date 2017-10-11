@@ -69,7 +69,10 @@ def handle_emailList():
             file.save(os.path.join(app.config['UPLOAD_FOLDER'],filename))
             try:
                 email_list = parse_csv(UPLOAD_FOLDER+filename)
+                
                 print("Email list length: ",len(email_list))
+                for i in email_list:
+                    print(i)
                 email_list =[email for email in email_list if email['email'] is not '']
                 list_size = len(email_list);
                 req_id+='_{0}'.format(list_size);
