@@ -105,7 +105,7 @@
         function del(id, len) {
             $.ajax({
                 type: "DELETE",
-                url: "http://spiderapi.herokuapp.com/api/email/" + id + "/",
+                url: "//spiderapi.herokuapp.com/api/email/" + id + "/",
                 success: function(msg) {
                     alert("Data Deleted: " + JSON.stringify(msg));
                     window.location = '/'
