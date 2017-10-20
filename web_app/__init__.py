@@ -9,7 +9,7 @@ from web_app.csv2json import parse_csv
 from web_app.greq import verify;
 from collections import OrderedDict
 from datetime import datetime
-
+from web_app.permutator import *
 # DOCS https://docs.python.org/3/library/concurrent.futures.html#concurrent.futures.ThreadPoolExecutor
 executor = ThreadPoolExecutor(2)
 
@@ -89,3 +89,22 @@ def handle_emailList():
 def results():
     req_id=request.args['rid']
     return render_template('result.html',req_id=req_id);
+    
+
+@app.route('/guess',methods=['GET','POST'])
+def guess_email():
+    if request.method == 'POST':
+        req_id = 'file'+datetime.now().strftime(FORMAT)
+        fname = request.form['fname']
+        lname = request.form['lname']
+        dname = request.form['dname']
+        e = EmailPermutator(fname=fname,lname=lname,dname=dname)
+        email_list = e.get_emails()
+        for i,email in enumerate(email_list):
+            email_list[i]= {'email':email}
+        list_size = len(email_list);
+        req_id+='_{0}'.format(list_size);
+        print("parsed length:",list_size)
+        executor.submit(parse_csv_pool,email_list,req_id)
+        return redirect(url_for('results',rid=req_id))
+    return "Hello"

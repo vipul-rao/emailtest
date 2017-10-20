@@ -36,10 +36,12 @@
         <a class="pure-menu-heading" href="">Email Spider</a>
         
         <ul class="pure-menu-list">
-            <!--<li class="pure-menu-item pure-menu-selected"><a href="#nav" class="pure-menu-link">Home</a></li>-->
+            <li class="pure-menu-item "><a href="#" id="verify_btn" class="pure-menu-link">Verify Email</a></li>
+            
             <li class="pure-menu-item"><a href="#" id="add_csv" class="pure-menu-link">upload csv</a></li>
+            <li class="pure-menu-item"><a href="#" id="guess_btn" class="pure-menu-link">Guess Email</a></li>
+            <li class="pure-menu-item"><a href="#" id="jobs" class="pure-menu-link">Jobs</a></li>
             <li class="pure-menu-item"><a href="#login" class="pure-menu-link">Login</a></li>
-            <li class="pure-menu-item"><a href="#signup-col" class="pure-menu-link">Sign Up</a></li>
         </ul>
     </div>
 </div>
@@ -61,7 +63,6 @@
    <form action="{{ url_for('handle_email') }}" method="post" id="email">
     <div class="splash">
         <input type="text" class="input-box" id="email" placeholder="enter email here" name="email"> 
-        <input type="file" id="csv_file" class="input-box" style="display:none;" value="browse...">
         <p class="splash-subhead">
         Email spider can find thousand of emails in seconds.
         </p>
@@ -70,6 +71,23 @@
         </p>
     </div>
     </form>
+    
+    <form action="{{ url_for('guess_email') }}" method="post" id="guess_email" style="display:none;">
+    <div class="splash">
+        <input type="text" class="input-box" id="fname" placeholder="first name" name="fname"> 
+        
+        <input type="text" class="input-box" id="lname" placeholder="last name" name="lname"> 
+        <input type="text" class="input-box" id="dname" placeholder="domain.com" name="dname"> 
+        
+        <p class="splash-subhead">
+        Email spider can find thousand of emails in seconds.
+        </p>
+        <p> 
+            <input type="submit" value="Submit" class="pure-button" id="search-btn" value="Get Started">
+        </p>
+    </div>
+    </form>
+    
 </div>
 
 <div class="content-wrapper" id="login">

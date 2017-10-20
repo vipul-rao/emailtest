@@ -93,9 +93,15 @@ a.pure-button-primary {
  * -- MENU STYLES --
  * I want to customize how my .pure-menu looks at the top of the page
  */
+ 
+ 
+ 
+
+
 
 .home-menu {
     padding: 0.5em;
+    padding-bottom:0px;
     text-align: center;
     box-shadow: 0 1px 1px rgba(0,0,0, 0.10);
 }
@@ -106,7 +112,7 @@ a.pure-button-primary {
     /* Fixed menus normally have a border at the bottom. */
     border-bottom: none;
     /* I need a higher z-index here because of the scroll-over effect. */
-    z-index: 4;
+    z-index: 1.5;
 }
 
 .home-menu .pure-menu-heading {
@@ -115,8 +121,10 @@ a.pure-button-primary {
     font-size: 120%;
 }
 
-.home-menu .pure-menu-selected a {
-    color: white;
+.home-menu .pure-menu-selected .pure-menu-link {
+    background: #1D85CA;
+    color: #fff;
+    
 }
 
 .home-menu a {
@@ -133,6 +141,7 @@ a.pure-button-primary {
     background-color: #fff;
     border: none;
     color:#2d3e50;
+    font-weight:bold;
 }
 
 
@@ -271,6 +280,9 @@ a.pure-button-primary {
     color: deepskyblue;
 }
 
+#fname,#dname,#lname{
+    margin-bottom:10px;
+}
 .col-divider {
     margin-left: 7%;
     border-right: 1px solid #DEDEDE;
@@ -332,7 +344,7 @@ a.pure-button-primary {
         white-space:normal
     }
         .home-menu ul {
-            float: right;
+            
         }
 
     /* We increase the height of the splash-container */
