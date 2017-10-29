@@ -37,7 +37,17 @@ def parse_csv_pool(email_list,req_id):
     except Exception as e:
         traceback.print_exc()
 #    return Response(json.dumps(email_list,  mimetype='application/json'))
-   
+
+
+#list parse job pool for guessing
+def guess_pool(list_email_list,req_id):
+    try:
+        for email_list in list_email_list:
+            parse_csv_pool(email_list,req_id);
+        print('guessing file finished!');
+    except Exception as e:
+        traceback.print_exc();
+        
 @app.route('/')
 def index():
     #get complete email list
@@ -84,7 +94,7 @@ def handle_emailList():
                 return str(e);
         else:
             return jsonify({'code': 400,'message': 'No interface defined for URL'}),400
-            
+
 @app.route('/results',methods=['GET'])
 def results():
     req_id=request.args['rid']
@@ -98,13 +108,59 @@ def guess_email():
         fname = request.form['fname']
         lname = request.form['lname']
         dname = request.form['dname']
-        e = EmailPermutator(fname=fname,lname=lname,dname=dname)
-        email_list = e.get_emails()
+        e = EmailPermutator()
+        email_list = e.get_emails(fname=fname,lname=lname,dname=dname)
         for i,email in enumerate(email_list):
             email_list[i]= {'email':email}
         list_size = len(email_list);
         req_id+='_{0}'.format(list_size);
         print("parsed length:",list_size)
         executor.submit(parse_csv_pool,email_list,req_id)
+        #return jsonify({"response":req_id,"url":'/results?rid='+req_id});
         return redirect(url_for('results',rid=req_id))
     return "Hello"
+    
+    
+def recursive_len(item):
+    if type(item) == list:
+        return sum(recursive_len(subitem) for subitem in item)
+    else:
+        return 1
+
+@app.route('/guesses',methods=['GET','POST'])
+def handle_guessList():
+    if request.method == 'GET':
+        return "Hello getter"
+    elif request.method == 'POST':
+        req_id = 'guess'+datetime.now().strftime(FORMAT)
+        file = request.files['file']
+        if file and allowed_file(file.filename):
+            filename = secure_filename(file.filename)
+            file.save(os.path.join(app.config['UPLOAD_FOLDER'],filename))
+            try:
+                guess_list = parse_csv(UPLOAD_FOLDER+filename)
+                print("Email list length: ",len(guess_list))
+                for i in guess_list:
+                    print(i)
+                if('firstname' not in guess_list[0].keys()):
+                    return 'firstname column not present in csv!';
+                elif('lastname' not in guess_list[0].keys()):
+                    return 'lastname column not present in csv!';
+                elif('domain' not in guess_list[0].keys()):
+                    return 'domain column not present in csv!';
+                    
+                e = EmailPermutator();
+                email_list = [{'firstname':client['firstname'],'lastname':client['lastname'],'domain':client['domain'],'emails':e.get_emails(client['firstname'],client['lastname'],client['domain'])} for client in guess_list];
+                emails = [[{'email':i,'firstname':client['firstname'],'lastname':client['lastname'],'domain':client['domain']} for i in client['emails']] for client in email_list]
+                list_size = recursive_len(emails);
+                req_id+='_{0}'.format(list_size);
+                executor.submit(guess_pool,emails,req_id)
+                # return redirect(url_for('results',rid=req_id))
+                #return 'One jobs was launched in background with id: {0}'.format(req_id)
+                #return str(emails);
+                return redirect(url_for('results',rid=req_id))
+            except Exception as e:
+                print(e);
+                return 'Guesses:Something went wrong while parsing, Error: '+str(e);
+        else:
+            return jsonify({'code': 400,'message': 'No interface defined for URL'}),400

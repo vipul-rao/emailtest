@@ -27,7 +27,11 @@ class EmailPermutator():
     def set_dname(self,dname):
         self.dname = dname
     
-    def get_emails(self):
+    def get_emails(self,fname,lname,dname):
+        self.fname = fname;
+        self.lname = lname;
+        self.dname = dname;
+        
         email_list = []
         email_list.append(self.fname+'@'+self.dname)
         email_list.append(self.lname+'@'+self.dname)

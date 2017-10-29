@@ -12,8 +12,8 @@ def print_res(res, **kwargs):
 def verify(json_list,req_id):
     print(url)
     req_id = req_id+'/'
-    response = requests.delete(url+req_id)
-    print("Delete:",response.json())
+    #response = requests.delete(url+req_id)
+    #print("Delete:",response.json())
     order = ",".join([key for key in json_list[0].keys()])
     print(order)
     for i in json_list:

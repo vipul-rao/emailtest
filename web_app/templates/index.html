@@ -8,6 +8,7 @@
     <link href="https://fonts.googleapis.com/css?family=Raleway" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css?family=Lato:300,400,700,900" rel="stylesheet">
     <link rel="stylesheet" href="https://unpkg.com/purecss@1.0.0/build/pure-min.css">
+    <script src="https://code.jquery.com/jquery-3.2.1.min.js"> </script>
     
     
     <!--[if lte IE 8]>
@@ -39,8 +40,15 @@
             <li class="pure-menu-item "><a href="#" id="verify_btn" class="pure-menu-link">Verify Email</a></li>
             
             <li class="pure-menu-item"><a href="#" id="add_csv" class="pure-menu-link">upload csv</a></li>
-            <li class="pure-menu-item"><a href="#" id="guess_btn" class="pure-menu-link">Guess Email</a></li>
-            <li class="pure-menu-item"><a href="#" id="jobs" class="pure-menu-link">Jobs</a></li>
+            <li class="pure-menu-item"><a href="#" id="guess_btn" class="pure-menu-link">Guess Email</a>
+            <li class="pure-menu-item"><a href="#" id="guess_file_btn" class="pure-menu-link">Guess Email(CSV)</a></li>
+            <li class="pure-menu-item"><a href="#"  class="pure-menu-link">Jobs</a>
+            <ul id="jobs">
+                    <li>Task 1: <div class="progress-bar">50%</div></li>
+                    <li><a href="#">Plugins</a></li>
+                    <li><a href="#">Tutorials</a></li>
+                </ul>
+            </li>
             <li class="pure-menu-item"><a href="#login" class="pure-menu-link">Login</a></li>
         </ul>
     </div>
@@ -48,17 +56,6 @@
 
 <div class="splash-container pure-img">
             
-   <form action="{{ url_for('handle_emailList') }}"  id="csv_file" method=post enctype=multipart/form-data style="display:none;">
-    <div class="splash">
-        <input type="file" id="csv_file" class="input-box" value="browse..." name="file">
-        <p class="splash-subhead">
-        Email spider can find thousand of emails in seconds.
-        </p>
-        <p> 
-            <input type="submit" value="Upload" class="pure-button" id="search-btn" value="Get Started">
-        </p>
-    </div>
-    </form> 
    
    <form action="{{ url_for('handle_email') }}" method="post" id="email">
     <div class="splash">
@@ -71,6 +68,19 @@
         </p>
     </div>
     </form>
+      
+       <form action="{{ url_for('handle_emailList') }}"  class="" id="csv_file" method=post enctype=multipart/form-data style="display:none;" >
+    <div class="splash">
+        <input type="file" id="csv_file" class="input-box" value="browse..." name="file">
+        <p class="splash-subhead">
+        Upload a csv file to verify emails.
+        </p>
+        <p> 
+            <input type="submit" value="Upload" class="pure-button" id="search-btn" value="Get Started">
+        </p>
+    </div>
+    </form> 
+      
     
     <form action="{{ url_for('guess_email') }}" method="post" id="guess_email" style="display:none;">
     <div class="splash">
@@ -80,7 +90,7 @@
         <input type="text" class="input-box" id="dname" placeholder="domain.com" name="dname"> 
         
         <p class="splash-subhead">
-        Email spider can find thousand of emails in seconds.
+        Enter name and domain to guess email id of someone.
         </p>
         <p> 
             <input type="submit" value="Submit" class="pure-button" id="search-btn" value="Get Started">
@@ -88,6 +98,18 @@
     </div>
     </form>
     
+    
+    <form action="{{ url_for('handle_guessList') }}"  class="" id="guess_file" method=post enctype=multipart/form-data style="display:none;" >
+    <div class="splash">
+        <input type="file" id="csv_file" class="input-box" value="browse..." name="file">
+        <p class="splash-subhead">
+        <span style="background:blue;">file must contain firstname,lastname,domain columns.</span>
+        </p>
+        <p> 
+            <input type="submit" value="Upload" class="pure-button" id="search-btn" value="Get Started">
+        </p>
+    </div>
+    </form>
 </div>
 
 <div class="content-wrapper" id="login">

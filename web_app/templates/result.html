@@ -149,8 +149,22 @@
 
         function json2csv(json_list) {
             for (let i = 0; i < json_list.length; i++) {
-                delete json_list[i]['_id']
+                delete json_list[i]['_id'];
+                
+                
             }
+            
+            // if(req_id[0]=='g'){
+            // for(var i=0;i<json_list.length;i++){
+            //     if(json_list[i]['status']!="Valid"){
+            //         console.log(true);
+            //         json_list.splice(i,1);
+            //     }
+            // }
+            // console.log(json_list);
+            // alert('Only downloading valid emails')
+            // }
+            
             let keys = Object.keys(json_list[0])
             
             const escape = text =>
@@ -166,6 +180,7 @@
                 csv_data += '\n' + values.join(",")
             }
             console.log(csv_data)
+            
             var encodedUri = encodeURI(csv_data);
             var link = document.createElement("a");
             link.setAttribute("href", 'data:text/csv;charset=utf-8,' + encodedUri);

@@ -144,6 +144,35 @@ a.pure-button-primary {
     font-weight:bold;
 }
 
+#nav div ul ul {
+	display: none;
+	position: absolute;
+}
+
+#nav div ul li:hover > ul {
+    list-style: none;
+    padding:5px;
+	padding-top: 20px;
+	display:inherit;
+	background-color: #fff;
+	color: #2d3e50;
+	width: auto;
+	border:1px solid black;
+}
+
+#nav div ul li ul li {
+	position: relative;
+	margin:10px;
+}
+
+.progress-bar{
+    height: 40px;
+    width:500px;
+    background-color: green;
+    border:none;
+}
+
+li > a:only-child:after { content: ''; }
 
 /*
  * -- SPLASH STYLES --
