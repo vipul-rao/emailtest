@@ -106,9 +106,11 @@ a.pure-button-primary {
     box-shadow: 0 1px 1px rgba(0,0,0, 0.10);
 }
 .home-menu {
-    background: #fff;
+    background: #2d3033;
 }
 .pure-menu.pure-menu-fixed {
+    
+    padding:10px;
     /* Fixed menus normally have a border at the bottom. */
     border-bottom: none;
     /* I need a higher z-index here because of the scroll-over effect. */
@@ -117,8 +119,12 @@ a.pure-button-primary {
 
 .home-menu .pure-menu-heading {
     text-transform:none;
-    font-weight: bold;
-    font-size: 120%;
+    font-size: 100%;
+    color:#fff;
+    
+    background:#00b4f0;
+    border-radius:100px;
+    margin-right: 20px;
 }
 
 .home-menu .pure-menu-selected .pure-menu-link {
@@ -128,20 +134,20 @@ a.pure-button-primary {
 }
 
 .home-menu a {
-    color: #2d3e50;
+    color: #00b4f0;
     text-transform: lowercase;
 }
 .home-menu li a:hover{
-    background: #1D85CA;
+    background:#00b4f0;
     border: none;
     color: #fff;
 }
 
 .home-menu li a:focus{
-    background-color: #fff;
+    background-color:#00b4f0 ;
     border: none;
-    color:#2d3e50;
-    font-weight:bold;
+    color:#fff;
+   
 }
 
 #nav div ul ul {
@@ -185,7 +191,7 @@ li > a:only-child:after { content: ''; }
 	background-image: -webkit-linear-gradient( 80deg, rgb(10,110,191) 0%, rgb(29,139,224) 100%);
 	background-image: -ms-linear-gradient( 80deg, rgb(10,110,191) 0%, rgb(29,139,224) 100%);
 
-
+    
     z-index: 1;
     overflow-y: hidden;
     /* The following styles are required for the "scroll-over" effect */
@@ -199,6 +205,8 @@ li > a:only-child:after { content: ''; }
 ::-webkit-scrollbar { 
     display: none; 
 }
+
+html {overflow: -moz-scrollbars-none;}
 
 .splash {
     /* absolute center .splash within .splash-container */
