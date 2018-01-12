@@ -21,7 +21,11 @@ function f() {
   },false);
   
   var btn3 = document.getElementById("verify_btn");
+  var btn3_1 = document.getElementById("verify_btn2");
+
+  
   btn3.addEventListener("click",()=>{
+    console.log("verify button pressed;")
       document.getElementById("email").style.display = '';
       document.getElementById("guess_email").style.display = 'none';
       document.getElementById("csv_file").style.display = 'none';
@@ -29,8 +33,10 @@ function f() {
     
   },false);
   
+  
   var btn4 = document.getElementById("guess_file_btn");
   btn4.addEventListener("click",()=>{
+        console.log("discover btn presssed!");
         document.getElementById("email").style.display = 'none';
         document.getElementById("guess_email").style.display = 'none';
         document.getElementById("csv_file").style.display = 'none';

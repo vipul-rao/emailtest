@@ -33,17 +33,34 @@
 <body>
 
 <div class="header" id="nav">
-    <div class="home-menu pure-menu pure-menu-horizontal pure-menu-fixed">
+    <div class="home-menu pure-menu pure-menu-horizontal pure-menu-fixed custom-restricted">
         <a class="pure-menu-heading" href="">Email Spider</a>
         
         <ul class="pure-menu-list">
-            <li class="pure-menu-item "><a href="#" id="verify_btn" class="pure-menu-link">Verify Email</a></li>
-            
-            <li class="pure-menu-item"><a href="#" id="add_csv" class="pure-menu-link">upload csv</a></li>
-            <li class="pure-menu-item"><a href="#" id="guess_btn" class="pure-menu-link">Guess Email</a>
-            <li class="pure-menu-item"><a href="#" id="guess_file_btn" class="pure-menu-link">Guess Email(CSV)</a></li>
-            <li class="pure-menu-item"><a href="#"  class="pure-menu-link">Jobs</a>
+            <li class="pure-menu-item pure-menu-has-children pure-menu-allow-hover"><a href="#" class="pure-menu-link">
+                Verify Email</a>
+                <ul class="pure-menu-children custom-list" 
+                style="width:100%;border:none;">
+                    <li class="pure-menu-item"><a href="#" id="verify_btn" class="pure-menu-link">Single</a></li>
+                    <li class="pure-menu-item"><a href="#" id="add_csv" class="pure-menu-link">Multiple</a></li>
+                </ul>
             </li>
+            
+            <!--<li class="pure-menu-item"><a href="#"  class="pure-menu-link">upload csv</a></li>-->
+            <li class="pure-menu-item pure-menu-has-children pure-menu-allow-hover"><a href="#" class="pure-menu-link">
+                Discover Email</a>
+                <ul class="pure-menu-children custom-list" 
+                style="width:100%;border:1px solid #ddd;">
+                    <li class="pure-menu-item"><a href="#" id="guess_btn" class="pure-menu-link">Single</a></li>
+                    <li class="pure-menu-item"><a href="#" id="guess_file_btn" class="pure-menu-link">Multiple</a></li>
+                </ul>
+            </li>
+            
+            
+            
+            <!--<li class="pure-menu-item"><a href="#" id="guess_file_btn" class="pure-menu-link">Guess Email(CSV)</a></li>-->
+            <!--<li class="pure-menu-item"><a href="#"  class="pure-menu-link">Jobs</a>-->
+            <!--</li>-->
             <li class="pure-menu-item"><a href="#login" class="pure-menu-link">Login</a></li>
         </ul>
     </div>
@@ -98,7 +115,7 @@
     <div class="splash">
         <input type="file" id="csv_file" class="input-box" value="browse..." name="file">
         <p class="splash-subhead">
-        <span style="background:blue;">file must contain firstname,lastname,domain columns.</span>
+        <span style="">Upload a csv file to Discover emails.<br/> File must contain firstname,lastname,domain columns.</span>
         </p>
         <p> 
             <input type="submit" value="Upload" class="pure-button" id="search-btn" value="Get Started">
@@ -160,6 +177,6 @@
 
 
 
-<script type="text/javascript" src="{{url_for('static', filename='script5.js')}}"></script>
+<script type="text/javascript" src="{{url_for('static', filename='script6.js')}}"></script>
 </body>
 </html>
