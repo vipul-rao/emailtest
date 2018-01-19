@@ -79,8 +79,8 @@ def handle_emailList():
             file.save(os.path.join(app.config['UPLOAD_FOLDER'],filename))
             try:
                 email_list = parse_csv(UPLOAD_FOLDER+filename)
-                
-                print("Email list length: ",len(email_list))
+               # print("init.py: email list: ",email_list[0])
+                print("init.py: Email list length: ",len(email_list))
                 for i in email_list:
                     print(i)
                 email_list =[email for email in email_list if email['email'] is not '']
@@ -139,9 +139,11 @@ def handle_guessList():
             file.save(os.path.join(app.config['UPLOAD_FOLDER'],filename))
             try:
                 guess_list = parse_csv(UPLOAD_FOLDER+filename)
-                print("Email list length: ",len(guess_list))
-                for i in guess_list:
-                    print(i)
+                print("init.py:/guesses: Email list length: ",len(guess_list))
+               # print("init.py:/guesses: email list: ",guess_list[0])
+                
+                # for i in guess_list:
+                #     print(i)
                 if('firstname' not in guess_list[0].keys()):
                     return 'firstname column not present in csv!';
                 elif('lastname' not in guess_list[0].keys()):
@@ -150,11 +152,34 @@ def handle_guessList():
                     return 'domain column not present in csv!';
                     
                 e = EmailPermutator();
-                email_list = [{'firstname':client['firstname'],'lastname':client['lastname'],'domain':client['domain'],'emails':e.get_emails(client['firstname'],client['lastname'],client['domain'])} for client in guess_list];
-                emails = [[{'email':i,'firstname':client['firstname'],'lastname':client['lastname'],'domain':client['domain']} for i in client['emails']] for client in email_list]
-                list_size = recursive_len(emails);
+               # print("init.py:/guesses: type of list[0]",type(guess_list[0]));
+                tmp_list = guess_list;
+                for person in tmp_list:
+                    person['email'] = e.get_emails(person['firstname'],person['lastname'],person['domain']);
+                
+                tmp_emails=[];
+                for person in tmp_list:
+                    each_persons_list = []
+                    for email in person['email']:
+                        tmp_person = person.copy();
+                        tmp_person['email'] = email;
+                        each_persons_list.append(tmp_person);
+                    tmp_emails.append(each_persons_list);
+                
+                print("type: tmp_emails[0]",type(tmp_emails[0]));
+                
+                #tmp_emails2 = [[person.copy()] for person in tmp_list for email in person['email']]
+                #print("tmp_emails2",len(tmp_emails2));
+                # print("#################");
+                # print("init.py: tmp_list: ");
+                # print(tmp_emails);
+                # print("##################");
+              
+              #  email_list = [{'firstname':client['firstname'],'lastname':client['lastname'],'domain':client['domain'],'emails':e.get_emails(client['firstname'],client['lastname'],client['domain'])} for client in guess_list];
+              #  emails = [[{'email':i,'firstname':client['firstname'],'lastname':client['lastname'],'domain':client['domain']} for i in client['emails']] for client in email_list]
+                list_size = recursive_len(tmp_emails);
                 req_id+='_{0}'.format(list_size);
-                executor.submit(guess_pool,emails,req_id)
+                executor.submit(guess_pool,tmp_emails,req_id)
                 # return redirect(url_for('results',rid=req_id))
                 #return 'One jobs was launched in background with id: {0}'.format(req_id)
                 #return str(emails);

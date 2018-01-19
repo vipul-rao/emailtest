@@ -10,12 +10,12 @@ def print_res(res, **kwargs):
     print(kwargs)
 
 def verify(json_list,req_id):
-    print(url)
+    print("greq.py: url:",url)
     req_id = req_id+'/'
     #response = requests.delete(url+req_id)
     #print("Delete:",response.json())
-    order = ",".join([key for key in json_list[0].keys()])
-    print(order)
+    #order = ",".join([key for key in json_list[0].keys()])
+    #print("greq.py: Order: ",order)
     for i in json_list:
         i['key'] = "C88B933A691E16C56EBC92BCC9A7E";
        # i['order'] = order

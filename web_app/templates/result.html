@@ -39,6 +39,7 @@
             background-color: ghostwhite;
             border: 1px solid silver;
             padding: 10px 20px;
+            display:none;
         }
         
         .json-key {
@@ -125,7 +126,7 @@
                 if (data.length < len) {
                     document.getElementsByClassName("inner")[0].innerHTML = "Loading ...<br>Processed till now: <b> <span class=success>" + data.length + "</span></b>"
                 } else if (data.length >= len) {
-                    document.getElementsByClassName("inner")[0].innerText = "";
+                    document.getElementsByClassName("inner")[0].innerText = "Done. Click the download button to download CSV";
                     $('#json').html(library.json.prettyPrint(data));
                     main_data = data;
                     clearInterval(refreshIntervalId);
@@ -149,9 +150,9 @@
 
         function json2csv(json_list) {
             for (let i = 0; i < json_list.length; i++) {
+                
                 delete json_list[i]['_id'];
-                
-                
+            
             }
             
             // if(req_id[0]=='g'){
