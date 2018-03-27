@@ -1,5 +1,4 @@
 class EmailPermutator():
-    special_chars = ['-','.','_','']
     
 
     def __init__(self,fname='',lname='',dname=''):
@@ -34,20 +33,14 @@ class EmailPermutator():
         
         email_list = []
         email_list.append(self.fname+'@'+self.dname)
-        email_list.append(self.lname+'@'+self.dname)
+        email_list.append(self.fname[:1]+self.lname+'@'+self.dname)
+        email_list.append(self.fname+'.'+self.lname+'@'+self.dname)
+        email_list.append(self.fname+self.lname+'@'+self.dname)
+        email_list.append(self.fname+self.lname[:1]+'@'+self.dname)	
+        email_list.append(self.fname[:1]+self.lname[:1]+'@'+self.dname)	
+	email_list.append(self.lname+'@'+self.dname)
+        email_list.append(self.fname[:1]+'.'+self.lname+'@'+self.dname)
         
-        
-        for char in self.special_chars:
-            email_list.append(self.fname+char+self.lname+'@'+self.dname)
-            email_list.append(self.lname+char+self.fname+'@'+self.dname)
-            email_list.append(self.fname[:1]+char+self.lname+'@'+self.dname)
-            email_list.append(self.lname[:1]+char+self.fname+'@'+self.dname)
-            
-            email_list.append(self.lname+char+self.fname[:1]+'@'+self.dname)
-            email_list.append(self.fname+char+self.lname[:1]+'@'+self.dname)
-            
-            email_list.append(self.fname[:1]+char+self.lname[:1]+'@'+self.dname)
-            email_list.append(self.lname[:1]+char+self.fname[:1]+'@'+self.dname)
         
         return email_list
 
