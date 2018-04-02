@@ -1,1 +1,1 @@
-web: python __init__.py runserver 0.0.0.0:5000
+web: gunicorn web_app:app -p $PORT -w $((2 * $(getconf _NPROCESSORS_ONLN) + 1))
