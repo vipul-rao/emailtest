@@ -38,11 +38,9 @@ class EmailPermutator():
         email_list.append(self.fname+self.lname+'@'+self.dname)
         email_list.append(self.fname+self.lname[:1]+'@'+self.dname)	
         email_list.append(self.fname[:1]+self.lname[:1]+'@'+self.dname)	
-	email_list.append(self.lname+'@'+self.dname)
-        
+        email_list.append(self.lname+'@'+self.dname)
         for char in self.special_chars:
             email_list.append(self.fname+char+self.lname+'@'+self.dname)
             email_list.append(self.fname[:1]+char+self.lname+'@'+self.dname)
         
         return email_list
-
